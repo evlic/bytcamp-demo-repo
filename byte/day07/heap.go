@@ -9,6 +9,26 @@ const (
 	NodeNilErr = "Node 不可以为空"
 )
 
+func (h NodeHeap) Len() int { return len(h.heap) }
+
+// Less 当 h[i] < h[j] return true 不执行交换，
+// Less 方法可以理解为 isNotSwap，true 不交换，如果此时 i < j 则为升序
+func (h NodeHeap) Less(i, j int) bool { return h.heap[i].Val < h.heap[j].Val }
+func (h NodeHeap) Swap(i, j int)      { h.heap[i], h.heap[j] = h.heap[j], h.heap[i] }
+func (h *NodeHeap) Pop() any {
+	n := h.Len() - 1
+	lastNode := h.heap[n]
+	h.heap = h.heap[:n]
+	return lastNode
+}
+func (h *NodeHeap) Push(x any) {
+	var node *Node
+	if node = x.(*Node); node == nil {
+		panic(NodeNilErr)
+	}
+	h.heap = append(h.heap, node)
+}
+
 // NodeHeap 链表节点堆，题目求取 TopK 大则使用小顶堆实现。
 type NodeHeap struct {
 	heap []*Node
@@ -17,22 +37,7 @@ type NodeHeap struct {
 }
 
 func NewNodeHeap(K int) *NodeHeap {
-	return &NodeHeap{make([]*Node, 0, K),K}
-}
-
-func (h NodeHeap) Len() int { return len(h.heap) }
-
-// Less 当 h[i] < h[j] return true 不执行交换，
-// Less 方法可以理解为 isNotSwap，true 不交换，如果此时 i < j 则为升序
-func (h NodeHeap) Less(i, j int) bool { return h.heap[i].Val < h.heap[j].Val }
-func (h NodeHeap) Swap(i, j int)      { h.heap[i], h.heap[j] = h.heap[j], h.heap[i] }
-
-func (h *NodeHeap) Push(x any) {
-	var node *Node
-	if node = x.(*Node); node == nil {
-		panic(NodeNilErr)
-	}
-	h.heap = append(h.heap, node)
+	return &NodeHeap{make([]*Node, 0, K), K}
 }
 
 // NodePush 封装 heap.Push 平衡堆的调整
@@ -49,13 +54,6 @@ func (h *NodeHeap) NodePush(node *Node) {
 
 func (h NodeHeap) Top() int {
 	return h.heap[0].Val
-}
-
-func (h *NodeHeap) Pop() any {
-	n := h.Len() - 1
-	lastNode := h.heap[n]
-	h.heap = h.heap[:n]
-	return lastNode
 }
 
 func (h *NodeHeap) String() (res string) {

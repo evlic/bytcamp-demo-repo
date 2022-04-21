@@ -1,4 +1,4 @@
-package go_edu
+package main
 
 import (
 	"fmt"
@@ -74,3 +74,48 @@ func TestDay04(t *testing.T) {
 
 }
 
+func add(a ...int) int {
+	var sum int
+	for _, i := range a {
+		sum += i
+	}
+	return sum
+}
+
+func TestDemo(t *testing.T) {
+	// func add(a ...int) int {
+	// fmt.Println(add([]int{1, 2}))
+	// fmt.Println(add([]int{1, 3, 7}...))
+	// func Println(a ...any) (n int, err error) {
+	// fmt.Println([]string{"1", "2"})
+	// fmt.Println([]any{"1", "2"}...)
+
+	var ch = make(chan int, 1)
+	ch <- 100
+	close(ch)
+	<-ch
+	fmt.Println(<-ch)
+}
+
+func TestShuChuYaZhi(t *testing.T) {
+	n := 10
+	my := []int{10000, 1000, 1000, 1111, 11111, 11212, 11213, 1111, 11111, 11212}
+	enemy := []int{10000, 1000, 1000, 1111, 11111, 112120, 11213, 1111, 11111, 11212}
+	dis := make([]int, n)
+
+	for i := range my {
+		dis[i] = enemy[i] - my[i]
+	}
+
+	var maxKr int
+	for i, v := range dis {
+		if v > 0 {
+			if v > maxKr*(i+1) {
+				maxKr = (v+1)/(i+1) + 1
+
+				fmt.Println(maxKr*(i+1), v)
+			}
+		}
+	}
+	fmt.Println(maxKr)
+}

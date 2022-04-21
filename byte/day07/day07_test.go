@@ -1,6 +1,7 @@
 package day07
 
 import (
+	"container/heap"
 	"fmt"
 	"testing"
 )
@@ -10,12 +11,12 @@ func TestDay07(t *testing.T) {
 	linked := NewLinedListFromIntS(testArr)
 	h := NewNodeHeap(K)
 
-	for p := linked.Head.Next; p != nil ; p = p.Next{
+	for p := linked.Head.Next; p != nil; p = p.Next {
 		h.NodePush(p)
 	}
 
-	// for h.Len() > 0 {
-	// 	fmt.Printf("\t%v\n", heap.Pop(h).(*Node).Val)
-	// }
-	fmt.Println(h)
+	for h.Len() > 0 {
+		fmt.Printf("\t%v\n", heap.Pop(h).(*Node).Val)
+	}
+	// fmt.Println(h)
 }

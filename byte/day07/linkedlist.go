@@ -13,7 +13,6 @@ func (l *LinkedList) Push(node *Node) {
 	if node == nil {
 		panic(NodeNilErr)
 	}
-
 	l.Tail.Next = node
 	l.Tail = node
 	l.Len++
