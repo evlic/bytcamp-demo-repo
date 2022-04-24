@@ -64,16 +64,6 @@ func TestDay06(t *testing.T) {
 	wg.Wait()
 }
 
-func TestDay04(t *testing.T) {
-	// 1、
-	// 通过查阅文档，发现 go test 指令执行中，为了加快编译速度，不同包的编译是并发执行的；
-	// 但 test 内方法执行保障其串行化，才能尽可能的保证执行过程中不受其他任务的影响。
-	// 调用 t.Parallel() 可提供一个信号量，执行时 该 test 下的任务可和其他被 Parallel 标记的任务并发执行。
-
-	// 2、大文件分段读入
-
-}
-
 func add(a ...int) int {
 	var sum int
 	for _, i := range a {
